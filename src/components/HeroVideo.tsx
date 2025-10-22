@@ -19,6 +19,12 @@ export default function HeroVideo() {
         <source src={VIDEO_SRC} type="video/mp4" />
       </video>
 
+      {/* Bottom fade overlay to smooth transition into the next section */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-56 sm:h-64 bg-gradient-to-b from-transparent to-black"
+      />
+
       {/* Neutral (grayscale) gradients and subtle noise overlay for legibility */}
       <div
         aria-hidden
@@ -38,7 +44,7 @@ export default function HeroVideo() {
       />
 
       {/* Content */}
-      <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col items-center px-4 pb-24 pt-40 text-center sm:pt-44">
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col items-center px-4 pb-24 pt-40 text-center sm:pt-44">
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/30 px-4 py-2 text-sm text-white/85 backdrop-blur">
           Рейтинг 4.9/5 — 1,000+ клиентов
         </div>

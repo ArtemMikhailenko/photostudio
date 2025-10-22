@@ -5,7 +5,7 @@ export default function USPSection() {
     <section className="relative isolate overflow-hidden bg-black py-20 text-white sm:py-28">
       {/* subtle grayscale video layer over dark bg */}
       <video
-        className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25 grayscale"
+        className="absolute inset-0 -z-10 h-full w-full object-cover opacity-8 grayscale"
         autoPlay
         muted
         loop

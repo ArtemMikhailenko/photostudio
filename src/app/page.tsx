@@ -7,7 +7,7 @@ import Particles from "@/components/Particles";
 export default function Home() {
   return (
     <main className="min-h-screen bg-black">
-            <Particles density={0.10} maxSize={1.2} opacity={0.32} speed={0.5} />
+            <Particles density={0.40} maxSize={1.6} opacity={0.20} speed={0.85} direction="up" />
 
       <HeroVideo />
       <USPSection />

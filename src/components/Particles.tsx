@@ -7,9 +7,10 @@ type Props = {
   maxSize?: number; // px radius
   speed?: number; // base speed multiplier
   opacity?: number;
+  direction?: "random" | "up" | "down" | "left" | "right";
 };
 
-export default function Particles({ density = 0.12, color = "#ffffff", maxSize = 1.4, speed = 0.6, opacity = 0.35 }: Props) {
+export default function Particles({ density = 0.12, color = "#ffffff", maxSize = 1.4, speed = 0.6, opacity = 0.35, direction = "random" }: Props) {
   const ref = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -28,6 +29,38 @@ export default function Particles({ density = 0.12, color = "#ffffff", maxSize =
 
     const rand = (min: number, max: number) => Math.random() * (max - min) + min;
 
+    function initialVelocity() {
+      // horizontal drift amplitude (kept small for directional movement)
+      const drift = 0.2;
+      switch (direction) {
+        case "up":
+          return {
+            vx: rand(-drift, drift) * speed * dpr,
+            vy: rand(-0.6, -0.2) * speed * dpr,
+          };
+        case "down":
+          return {
+            vx: rand(-drift, drift) * speed * dpr,
+            vy: rand(0.2, 0.6) * speed * dpr,
+          };
+        case "left":
+          return {
+            vx: rand(-0.6, -0.2) * speed * dpr,
+            vy: rand(-drift, drift) * speed * dpr,
+          };
+        case "right":
+          return {
+            vx: rand(0.2, 0.6) * speed * dpr,
+            vy: rand(-drift, drift) * speed * dpr,
+          };
+        default:
+          return {
+            vx: rand(-0.5, 0.5) * speed * dpr,
+            vy: rand(-0.5, 0.5) * speed * dpr,
+          };
+      }
+    }
+
     function resize() {
       const rect = canvas.parentElement?.getBoundingClientRect();
       width = Math.floor((rect?.width || window.innerWidth) * dpr);
@@ -41,14 +74,17 @@ export default function Particles({ density = 0.12, color = "#ffffff", maxSize =
       const area10k = (width / dpr) * (height / dpr) / 10000;
       const targetCount = Math.floor(area10k * density * 100);
 
-      particles = new Array(targetCount).fill(0).map(() => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (rand(-0.5, 0.5)) * speed * dpr,
-        vy: (rand(-0.5, 0.5)) * speed * dpr,
-        r: rand(0.4, maxSize) * dpr,
-        o: rand(opacity * 0.6, opacity),
-      }));
+      particles = new Array(targetCount).fill(0).map(() => {
+        const v = initialVelocity();
+        return {
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: v.vx,
+          vy: v.vy,
+          r: rand(0.4, maxSize) * dpr,
+          o: rand(opacity * 0.6, opacity),
+        };
+      });
     }
 
     function tick() {
@@ -82,7 +118,7 @@ export default function Particles({ density = 0.12, color = "#ffffff", maxSize =
       cancelAnimationFrame(raf);
       ro.disconnect();
     };
-  }, [color, density, maxSize, speed, opacity]);
+  }, [color, density, maxSize, speed, opacity, direction]);
 
   return <canvas ref={ref} className="pointer-events-none absolute inset-0 z-0" aria-hidden />;
 }

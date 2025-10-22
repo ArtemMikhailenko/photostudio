@@ -12,9 +12,17 @@ export default function BrandsMarquee() {
 
   // Build one row content duplicated for seamless loop
   const Row = ({ outline = false, reverse = false }: { outline?: boolean; reverse?: boolean }) => (
-    <div className="relative overflow-hidden py-6">
+    <div
+      className={`relative overflow-hidden py-6 ${reverse ? "-rotate-[0.4deg]" : "rotate-[0.4deg]"}`}
+      style={{
+        WebkitMaskImage:
+          "linear-gradient(to right, transparent, rgba(0,0,0,0.9) 6%, rgba(0,0,0,0.9) 94%, transparent)",
+        maskImage:
+          "linear-gradient(to right, transparent, rgba(0,0,0,0.9) 6%, rgba(0,0,0,0.9) 94%, transparent)",
+      }}
+    >
       <div
-        className={`pause-if-reduced will-change-transform flex w-[200%] items-center gap-10 whitespace-nowrap ${
+        className={`pause-if-reduced will-change-transform flex min-w-max items-center gap-10 whitespace-nowrap ${
           reverse
             ? "motion-safe:animate-[marquee-right_28s_linear_infinite]"
             : "motion-safe:animate-[marquee-left_36s_linear_infinite]"
@@ -23,21 +31,27 @@ export default function BrandsMarquee() {
         {[...Array(2)].map((_, idx) => (
           <div key={idx} className="flex shrink-0 items-center gap-10 px-2">
             {brands.map((b) => (
-              <div key={b + idx} className="flex items-center gap-6">
+              <div key={b + idx} className="group relative flex items-center gap-6 transition-transform duration-300 ease-out hover:-translate-y-0.5">
                 <span
-                  className={`text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight ${
+                  className={`text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight transition-transform duration-300 will-change-transform group-hover:scale-[1.03] ${
                     outline ? "text-outline" : "text-white"
                   }`}
                   style={outline ? { WebkitTextStroke: "2px #ffffff" } : undefined}
                 >
                   {b}
                 </span>
-                <span className="text-4xl text-[#D4FF3D]">•</span>
+                <span className="text-4xl text-[#D4FF3D] motion-safe:animate-[pulse-soft_3s_ease-in-out_infinite]">•</span>
               </div>
             ))}
           </div>
         ))}
       </div>
+
+      {/* subtle glow line across the row for visual interest */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-[2px] -translate-y-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-10 blur-sm"
+      />
 
       {/* cute swirl accents */}
       <svg

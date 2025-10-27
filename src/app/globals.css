@@ -21,7 +21,6 @@
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
   /* Match Tailwind's font-sans to Manrope */
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
@@ -87,4 +86,22 @@ body {
 /* Optional helper utility for display font */
 .font-display {
   font-family: var(--font-display), var(--font-geist-sans), ui-sans-serif, system-ui;
+}
+
+/* 3D Flip Card Utilities */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
 }

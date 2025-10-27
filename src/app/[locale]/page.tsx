@@ -7,6 +7,7 @@ import USPShowcase from "@/components/USPShowcase";
 import ServicesSection from "@/components/ServicesSection";
 import BookingCalendarSection from "@/components/BookingCalendarSection";
 import FAQSection from "@/components/FAQSection";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <BookingCalendarSection />
       <BrandsMarquee />
       <FAQSection />
+      <Footer />
     </main>
   );
 }

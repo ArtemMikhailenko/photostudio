@@ -107,5 +107,42 @@
       "bullet2": "Editing & VFX",
       "bullet3": "Color grading"
     }
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Explore our best work across portraits, commercial shoots, and family moments.",
+    "noProjects": "No projects found in this category.",
+    "filters": {
+      "all": "All",
+      "portrait": "Portrait",
+      "commercial": "Commercial",
+      "family": "Family"
+    },
+    "projects": {
+      "project1": {
+        "title": "Urban Portrait",
+        "description": "Modern portrait photography with urban aesthetics"
+      },
+      "project2": {
+        "title": "Brand Campaign",
+        "description": "Complete commercial shoot for lifestyle brand"
+      },
+      "project3": {
+        "title": "Family Memories",
+        "description": "Warm and candid family photography session"
+      },
+      "project4": {
+        "title": "Studio Session",
+        "description": "Classic studio portrait with professional lighting"
+      },
+      "project5": {
+        "title": "Product Photography",
+        "description": "High-end commercial product photography"
+      },
+      "project6": {
+        "title": "Outdoor Family",
+        "description": "Natural light family session in the park"
+      }
+    }
   }
 }

@@ -12,7 +12,7 @@ export default function Header() {
   const [isPending, startTransition] = useTransition();
   
   const NAV = useMemo(() => [
-    { key: "portfolio", href: "#portfolio", label: t('portfolio') },
+    { key: "portfolio", href: "/portfolio", label: t('portfolio'), isPage: true },
     { key: "services", href: "#services", label: t('services') },
     { key: "about", href: "#about", label: t('about') },
     { key: "contacts", href: "#contacts", label: t('contacts') },
@@ -30,11 +30,18 @@ export default function Header() {
   const langRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const setFromHash = () => setActive(window.location.hash);
+    const setFromHash = () => {
+      // Check if we're on a specific page
+      if (pathname === '/portfolio') {
+        setActive('/portfolio');
+      } else {
+        setActive(window.location.hash);
+      }
+    };
     setFromHash();
     window.addEventListener("hashchange", setFromHash);
     return () => window.removeEventListener("hashchange", setFromHash);
-  }, []);
+  }, [pathname]);
 
   // Close dropdown on outside click or ESC
   useEffect(() => {

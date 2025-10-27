@@ -8,8 +8,8 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="mx-auto w-full max-w-7xl px-4 pt-8 pb-6">
-      <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-[#111]/70 shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-md">
+    <footer className="mx-auto w-full max-w-7xl px-4 pt-8 pb-6 ">
+      <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-black/30 shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-xl">
         {/* subtle gradient glow */}
         <div aria-hidden className="pointer-events-none absolute inset-0 rounded-3xl bg-[radial-gradient(60%_120%_at_50%_0%,rgba(179,122,69,0.12),transparent_70%)] opacity-50" />
 

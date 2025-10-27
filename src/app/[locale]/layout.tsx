@@ -60,7 +60,6 @@ export default async function LocaleLayout({
           <Header />
           {children}
           <GlobalParticles />
-          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

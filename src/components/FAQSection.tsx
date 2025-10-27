@@ -14,7 +14,7 @@ export default function FAQSection() {
   }))
 
   return (
-    <section className="relative mx-auto w-full max-w-7xl px-4 py-16 sm:py-24">
+    <section className="relative mx-auto w-full max-w-7xl px-4 py-16 sm:py-24 overflow-hidden">
       {/* decorative half-visible poligraf image on the right */}
       <div className="pointer-events-none absolute inset-y-0 right-0 z-0 w-[54%] max-w-[620px] translate-x-[18%] sm:translate-x-[12%]">
         <div className="relative h-full">

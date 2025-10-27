@@ -13,6 +13,7 @@ export default function Header() {
   
   const NAV = useMemo(() => [
     { key: "portfolio", href: "/portfolio", label: t('portfolio'), isPage: true },
+    { key: "equipment", href: "/equipment", label: t('equipment'), isPage: true },
     { key: "services", href: "#services", label: t('services') },
     { key: "about", href: "#about", label: t('about') },
     { key: "contacts", href: "#contacts", label: t('contacts') },
@@ -34,6 +35,8 @@ export default function Header() {
       // Check if we're on a specific page
       if (pathname === '/portfolio') {
         setActive('/portfolio');
+      } else if (pathname === '/equipment') {
+        setActive('/equipment');
       } else {
         setActive(window.location.hash);
       }

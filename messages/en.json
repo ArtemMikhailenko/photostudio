@@ -1,6 +1,7 @@
 {
   "header": {
     "portfolio": "Portfolio",
+    "equipment": "Equipment",
     "services": "Services",
     "about": "About",
     "contacts": "Contacts",
@@ -142,6 +143,44 @@
       "project6": {
         "title": "Outdoor Family",
         "description": "Natural light family session in the park"
+      }
+    }
+  },
+  "equipment": {
+    "title": "Equipment",
+    "subtitle": "Professional gear for stunning results.",
+    "badge": "Pro Gear",
+    "selectEquipment": "Select equipment to view details",
+    "selectEquipmentHint": "Click on any item from the list",
+    "categories": {
+      "all": "All",
+      "cameras": "Cameras",
+      "lenses": "Lenses",
+      "lighting": "Lighting"
+    },
+    "specs": {
+      "sensor": "Sensor",
+      "iso": "ISO Range",
+      "video": "Video",
+      "aperture": "Aperture",
+      "focal": "Focal Length",
+      "stabilization": "Stabilization",
+      "power": "Power",
+      "modes": "Modes",
+      "recycling": "Recycling Time"
+    },
+    "items": {
+      "camera1": {
+        "name": "EOS R5",
+        "description": "Professional full-frame mirrorless camera with outstanding image quality and 8K video capabilities."
+      },
+      "lens1": {
+        "name": "RF 24-70mm f/2.8L",
+        "description": "Versatile professional zoom lens with constant f/2.8 aperture and optical image stabilization."
+      },
+      "light1": {
+        "name": "AD600Pro",
+        "description": "Powerful portable strobe with TTL, high-speed sync and fast recycling time for professional shoots."
       }
     }
   }

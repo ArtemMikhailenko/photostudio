@@ -59,7 +59,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Header />
           {children}
-          <GlobalParticles />
+          {/* <GlobalParticles /> */}
         </NextIntlClientProvider>
       </body>
     </html>

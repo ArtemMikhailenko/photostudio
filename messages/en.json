@@ -1,0 +1,111 @@
+{
+  "header": {
+    "portfolio": "Portfolio",
+    "services": "Services",
+    "about": "About",
+    "contacts": "Contacts",
+    "bookCTA": "Book",
+    "contactsCTA": "Contacts"
+  },
+  "hero": {
+    "titleLine1": "Timeless frames.",
+    "titleLine2": "Real stories.",
+    "subtitle": "Portraits, family, commercial. Light, color and mood — captured with care.",
+    "bookShoot": "Book a shoot",
+    "portfolio": "Portfolio"
+  },
+  "footer": {
+    "portfolio": "Portfolio",
+    "services": "Services",
+    "about": "About",
+    "contacts": "Contacts",
+    "bookCTA": "Book",
+    "bookNow": "Book Now",
+    "homeLabel": "Go to homepage",
+    "logoAlt": "SIMILIA Photo Studio logo",
+    "copyright": "© {year} SIMILIA. All rights reserved."
+  },
+  "faq": {
+    "title": "FAQ",
+    "subtitle": "Answers to common questions about sessions, equipment and delivery.",
+    "decorativeImageAlt": "Decorative polygraph element",
+    "q1": {
+      "question": "How long does a standard shoot take?",
+      "answer": "Most portrait or content sessions take 1.5–2 hours including setup, styling and lighting. Production packages vary depending on complexity."
+    },
+    "q2": {
+      "question": "Do you provide equipment and studio?",
+      "answer": "Yes. We have a fully-equipped studio with professional lighting, backgrounds and grip. Outdoor on-location equipment is available as well."
+    },
+    "q3": {
+      "question": "How and when will I receive the photos/videos?",
+      "answer": "Sneak peeks are usually delivered within 24 h. Full post-processed content is delivered in 3–7 days via an online gallery or drive link."
+    },
+    "q4": {
+      "question": "Can I reschedule my booking?",
+      "answer": "Absolutely. You can reschedule up to 24 hours before your session without extra fees."
+    },
+    "questions": {
+      "duration": {
+        "q": "How long does a standard shoot take?",
+        "a": "Most portrait or content sessions take 1.5–2 hours including setup, styling and lighting. Production packages vary depending on complexity."
+      },
+      "equipment": {
+        "q": "Do you provide equipment and studio?",
+        "a": "Yes. We have a fully-equipped studio with professional lighting, backgrounds and grip. Outdoor on-location equipment is available as well."
+      },
+      "delivery": {
+        "q": "How and when will I receive the photos/videos?",
+        "a": "Sneak peeks are usually delivered within 24 h. Full post-processed content is delivered in 3–7 days via an online gallery or drive link."
+      },
+      "reschedule": {
+        "q": "Can I reschedule my booking?",
+        "a": "Absolutely. You can reschedule up to 24 hours before your session without extra fees."
+      }
+    }
+  },
+  "booking": {
+    "availableTimes": "Available times",
+    "summaryBooked": "Your meeting is booked for {date}, at {time}.",
+    "summaryChoose": "Choose a date and time to continue.",
+    "chooseDateAndTime": "Choose a date and time to continue.",
+    "continue": "Continue",
+    "weekdays": {
+      "sun": "Sun",
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat"
+    }
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Choose a package that fits your goals.",
+    "studio": {
+      "title": "STUDIO",
+      "subtitle": "RENTAL",
+      "badge": "From 250 ₪/h",
+      "bullet1": "Hourly rental",
+      "bullet2": "Professional equipment",
+      "bullet3": "Flexible schedule"
+    },
+    "content": {
+      "title": "CONTENT",
+      "subtitle": "PACKAGES",
+      "badge": "Popular",
+      "bullet1": "2-hour sessions",
+      "bullet2": "15–30 clips",
+      "bullet3": "Teleprompter included"
+    },
+    "production": {
+      "title": "PRODUCTION",
+      "subtitle": "SERVICES",
+      "badge": "Premium",
+      "bullet1": "Full production",
+      "bullet2": "Editing & VFX",
+      "bullet3": "Color grading"
+    }
+  }
+}

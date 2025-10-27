@@ -1,23 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-/* Map CSS variables to Tailwind tokens via utilities and base styles instead of @theme */
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Design System: Light Theme Tokens */
+  --background: #F6F3EF;
+  --background-alt: #F3EFE9;
+  --foreground: #1E1E1E;
+  --foreground-secondary: #4B4B4B;
+  
+  /* Primary Bronze (softer, sandier) */
+  --primary: #C29B72;
+  --primary-hover: #A9825D;
+  
+  /* Glass Panel */
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  
+  /* Accents */
+  --accent-beige: #E8DFD5;
+  --accent-sand: #D4C4B0;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  /* Match Tailwind's font-sans to Geist variable */
+  /* Match Tailwind's font-sans to Manrope */
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
     Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }

@@ -1,0 +1,111 @@
+{
+  "header": {
+    "portfolio": "Портфолио",
+    "services": "Услуги",
+    "about": "О нас",
+    "contacts": "Контакты",
+    "bookCTA": "Заказать",
+    "contactsCTA": "Контакты"
+  },
+  "hero": {
+    "titleLine1": "Вечные кадры.",
+    "titleLine2": "Реальные истории.",
+    "subtitle": "Портреты, семья, коммерция. Свет, цвет и настроение — запечатлены с заботой.",
+    "bookShoot": "Забронировать съёмку",
+    "portfolio": "Портфолио"
+  },
+  "footer": {
+    "portfolio": "Портфолио",
+    "services": "Услуги",
+    "about": "О нас",
+    "contacts": "Контакты",
+    "bookCTA": "Заказать",
+    "bookNow": "Забронировать",
+    "homeLabel": "Перейти на главную",
+    "logoAlt": "Логотип фотостудии SIMILIA",
+    "copyright": "© {year} SIMILIA. Все права защищены."
+  },
+  "faq": {
+    "title": "FAQ",
+    "subtitle": "Ответы на частые вопросы о съёмках, оборудовании и доставке материалов.",
+    "decorativeImageAlt": "Декоративный полиграфический элемент",
+    "q1": {
+      "question": "Сколько времени занимает стандартная съёмка?",
+      "answer": "Большинство портретных сессий или контент-съёмок длятся 1,5–2 часа, включая подготовку, стайлинг и настройку света. Время продакшн-пакетов зависит от сложности."
+    },
+    "q2": {
+      "question": "Вы предоставляете оборудование и студию?",
+      "answer": "Да. У нас есть полностью оборудованная студия с профессиональным светом, фонами и grip-оборудованием. Также доступно оборудование для выездных съёмок."
+    },
+    "q3": {
+      "question": "Как и когда я получу фото/видео?",
+      "answer": "Превью обычно приходят в течение 24 часов. Полностью обработанные материалы доставляются за 3–7 дней через онлайн-галерею или ссылку на диск."
+    },
+    "q4": {
+      "question": "Можно ли перенести запись?",
+      "answer": "Конечно. Вы можете перенести запись за 24 часа до сессии без дополнительной платы."
+    },
+    "questions": {
+      "duration": {
+        "q": "How long does a standard shoot take?",
+        "a": "Most portrait or content sessions take 1.5–2 hours including setup, styling and lighting. Production packages vary depending on complexity."
+      },
+      "equipment": {
+        "q": "Do you provide equipment and studio?",
+        "a": "Yes. We have a fully-equipped studio with professional lighting, backgrounds and grip. Outdoor on-location equipment is available as well."
+      },
+      "delivery": {
+        "q": "How and when will I receive the photos/videos?",
+        "a": "Sneak peeks are usually delivered within 24 h. Full post-processed content is delivered in 3–7 days via an online gallery or drive link."
+      },
+      "reschedule": {
+        "q": "Can I reschedule my booking?",
+        "a": "Absolutely. You can reschedule up to 24 hours before your session without extra fees."
+      }
+    }
+  },
+  "booking": {
+    "availableTimes": "Доступное время",
+    "summaryBooked": "Ваша встреча забронирована на {date}, в {time}.",
+    "summaryChoose": "Выберите дату и время для продолжения.",
+    "chooseDateAndTime": "Выберите дату и время для продолжения.",
+    "continue": "Продолжить",
+    "weekdays": {
+      "sun": "Вс",
+      "mon": "Пн",
+      "tue": "Вт",
+      "wed": "Ср",
+      "thu": "Чт",
+      "fri": "Пт",
+      "sat": "Сб"
+    }
+  },
+  "services": {
+    "title": "Услуги",
+    "subtitle": "Выберите пакет, который подходит вашим целям.",
+    "studio": {
+      "title": "СТУДИЯ",
+      "subtitle": "АРЕНДА",
+      "badge": "От 250 ₪/час",
+      "bullet1": "Почасовая аренда",
+      "bullet2": "Профессиональное оборудование",
+      "bullet3": "Гибкий график"
+    },
+    "content": {
+      "title": "КОНТЕНТ",
+      "subtitle": "ПАКЕТЫ",
+      "badge": "Популярно",
+      "bullet1": "Сессии на 2 часа",
+      "bullet2": "15–30 клипов",
+      "bullet3": "Включен телесуфлер"
+    },
+    "production": {
+      "title": "ПРОИЗВОДСТВО",
+      "subtitle": "УСЛУГИ",
+      "badge": "Премиум",
+      "bullet1": "Полное производство",
+      "bullet2": "Монтаж и VFX",
+      "bullet3": "Цветокоррекция"
+    }
+  }
+}

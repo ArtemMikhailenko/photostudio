@@ -10,7 +10,7 @@ import FAQSection from "@/components/FAQSection";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#F6F3EF]">
+    <main className="min-h-screen bg-[#F6F3EF] overflow-x-hidden">
       {/* <Particles density={0.40} maxSize={1.6} opacity={0.12} speed={0.85} direction="up" color="#B37A45" /> */}
 
       <HeroImage />

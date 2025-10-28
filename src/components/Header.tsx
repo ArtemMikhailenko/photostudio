@@ -14,9 +14,10 @@ export default function Header() {
   const NAV = useMemo(() => [
     { key: "portfolio", href: "/portfolio", label: t('portfolio'), isPage: true },
     { key: "equipment", href: "/equipment", label: t('equipment'), isPage: true },
+    { key: "gallery", href: "/gallery", label: t('gallery'), isPage: true },
     { key: "services", href: "#services", label: t('services') },
     { key: "about", href: "#about", label: t('about') },
-    { key: "contacts", href: "#contacts", label: t('contacts') },
+    { key: "contacts", href: "/contact", label: t('contacts'), isPage: true },
   ], [t]);
   
   const [active, setActive] = useState<string>("");
@@ -37,6 +38,10 @@ export default function Header() {
         setActive('/portfolio');
       } else if (pathname === '/equipment') {
         setActive('/equipment');
+      } else if (pathname === '/gallery') {
+        setActive('/gallery');
+      } else if (pathname === '/contact') {
+        setActive('/contact');
       } else {
         setActive(window.location.hash);
       }
@@ -100,7 +105,7 @@ export default function Header() {
           </Link>
 
           {/* Nav links */}
-          <ul className="hidden items-center gap-8 md:flex">
+          <ul className="hidden items-center gap-3 md:flex">
             {NAV.map((item) => {
               const isActive = active === item.href;
               return (
@@ -108,35 +113,71 @@ export default function Header() {
                   <Link
                     href={item.href}
                     onClick={() => setActive(item.href)}
-                    className={`relative text-[0.95rem] font-medium transition-colors ${
-                      isActive ? "text-[var(--primary)]" : "text-[#4B4B4B] hover:text-[#1E1E1E]"
+                    className={`relative inline-block px-4 py-2.5 text-[0.95rem] font-semibold transition-all duration-500 rounded-2xl overflow-hidden ${
+                      isActive 
+                        ? "text-[#1E1E1E] scale-105 shadow-lg" 
+                        : "text-[#4B4B4B] hover:text-[#1E1E1E] hover:scale-105"
                     }`}
                     aria-current={isActive ? "page" : undefined}
                   >
-                    {item.label}
-                  </Link>
-                  {/* Wavy underline with stroke-dash animation (bigger) */}
-                  <svg
-                    className={`pointer-events-none absolute left-1/2 -translate-x-1/2 top-[calc(100%+2px)] h-6 w-[90px] opacity-0 transition-opacity duration-300 ${
-                      isActive ? "opacity-100" : "group-hover:opacity-100"
-                    }`}
-                    viewBox="0 0 90 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M2 12 C 14 6, 26 18, 38 12 S 62 6, 74 12 86 18, 88 12"
-                      stroke="var(--primary)"
-                      strokeWidth="3.5"
-                      strokeLinecap="round"
-                      style={{ strokeDasharray: 140, strokeDashoffset: 140 }}
-                      className={`${
-                        isActive
-                          ? "[stroke-dashoffset:0]"
-                          : "group-hover:motion-safe:animate-[dash_1.1s_ease_forwards]"
+                    {/* Animated gradient background for active state */}
+                    <span 
+                      className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-[#E8DFD5] via-[#F6F3EF] to-[#D4C4B0] transition-all duration-500 ${
+                        isActive 
+                          ? "opacity-100 scale-100" 
+                          : "opacity-0 scale-90"
                       }`}
+                      aria-hidden="true"
                     />
-                  </svg>
+                    
+                    {/* Decorative border for active state */}
+                    <span 
+                      className={`absolute inset-0 rounded-2xl border-2 border-[var(--primary)]/40 transition-all duration-500 ${
+                        isActive 
+                          ? "opacity-100 scale-100" 
+                          : "opacity-0 scale-90"
+                      }`}
+                      aria-hidden="true"
+                    />
+                    
+                    {/* Subtle glow effect for active state */}
+                    <span 
+                      className={`absolute inset-0 rounded-2xl bg-[var(--primary)] blur-xl transition-all duration-500 ${
+                        isActive 
+                          ? "opacity-20" 
+                          : "opacity-0"
+                      }`}
+                      aria-hidden="true"
+                    />
+                    
+                    {/* Hover background effect - glass morphism */}
+                    <span 
+                      className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-white/60 via-white/30 to-white/40 backdrop-blur-sm transition-all duration-300 ${
+                        isActive 
+                          ? "opacity-0" 
+                          : "opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100"
+                      }`}
+                      aria-hidden="true"
+                    />
+                    
+                    {/* Shimmer effect on hover */}
+                    <span 
+                      className={`absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12 ${
+                        isActive ? "hidden" : ""
+                      }`}
+                      aria-hidden="true"
+                    />
+                    
+                    {/* Accent dot indicator for active state */}
+                    {isActive && (
+                      <span 
+                        className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--primary-hover)] animate-pulse shadow-lg"
+                        aria-hidden="true"
+                      />
+                    )}
+                    
+                    <span className="relative z-10">{item.label}</span>
+                  </Link>
                 </li>
               );
             })}

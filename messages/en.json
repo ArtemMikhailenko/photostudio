@@ -2,6 +2,7 @@
   "header": {
     "portfolio": "Portfolio",
     "equipment": "Equipment",
+    "gallery": "Gallery",
     "services": "Services",
     "about": "About",
     "contacts": "Contacts",
@@ -182,6 +183,106 @@
         "name": "AD600Pro",
         "description": "Powerful portable strobe with TTL, high-speed sync and fast recycling time for professional shoots."
       }
+    }
+  },
+  "gallery": {
+    "title": "Studio Gallery",
+    "subtitle": "Take a look inside our professional photo studio and see the spaces where creativity comes to life.",
+    "badge": "Our Studio",
+    "viewAll": "View All Photos",
+    "categories": {
+      "studio": "Studio Space",
+      "equipment": "Equipment",
+      "setup": "Setup",
+      "lighting": "Lighting"
+    },
+    "images": {
+      "studio1": {
+        "title": "Main Studio Hall",
+        "description": "Our spacious 500 sq ft main studio with high ceilings, perfect for any type of shoot."
+      },
+      "studio2": {
+        "title": "Creative Corner",
+        "description": "Versatile corner setup with adjustable backgrounds and professional lighting systems."
+      },
+      "equipment1": {
+        "title": "Camera Gear Station",
+        "description": "Full range of professional cameras, lenses and accessories available for all shoots."
+      },
+      "setup1": {
+        "title": "Portrait Setup",
+        "description": "Classic portrait lighting setup with softboxes and reflectors for stunning headshots."
+      },
+      "setup2": {
+        "title": "Product Photography Area",
+        "description": "Dedicated space for product photography with seamless backgrounds and specialized lighting."
+      },
+      "lighting1": {
+        "title": "Professional Lighting Kit",
+        "description": "State-of-the-art studio strobes, continuous lights and modifiers for perfect illumination."
+      },
+      "studio3": {
+        "title": "Lounge Area",
+        "description": "Comfortable waiting and preparation area for clients with makeup station and refreshments."
+      },
+      "equipment2": {
+        "title": "Grip & Support Gear",
+        "description": "Complete collection of stands, booms, clamps and rigging equipment for any setup."
+      }
+    },
+    "features": {
+      "professional": {
+        "title": "Professional Space",
+        "description": "Fully equipped studio with everything you need for a successful shoot"
+      },
+      "lighting": {
+        "title": "Advanced Lighting",
+        "description": "State-of-the-art lighting equipment and modifiers for any creative vision"
+      },
+      "versatile": {
+        "title": "Versatile Setup",
+        "description": "Flexible space that adapts to portraits, products, fashion and more"
+      }
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Let's create something beautiful together. Reach out to book a session or ask any questions.",
+    "formTitle": "Send us a message",
+    "formSubtitle": "Fill out the form and we'll get back to you within 24 hours",
+    "name": "Your Name",
+    "namePlaceholder": "John Doe",
+    "email": "Email Address",
+    "emailPlaceholder": "john@example.com",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "subject": "Subject",
+    "subjectPlaceholder": "What's this about?",
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your project or ask a question...",
+    "submit": "Send Message",
+    "sending": "Sending...",
+    "success": "Message sent successfully!",
+    "error": "Something went wrong. Please try again.",
+    "info": {
+      "title": "Contact Information",
+      "address": "123 Studio Street",
+      "city": "Tel Aviv, Israel",
+      "phone": "+972 50 123 4567",
+      "email": "hello@similia.studio",
+      "hours": "Working Hours",
+      "hoursText": "Mon-Fri: 9:00 - 20:00",
+      "hoursWeekend": "Sat-Sun: 10:00 - 18:00"
+    },
+    "social": {
+      "title": "Follow Us",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "whatsapp": "WhatsApp"
+    },
+    "map": {
+      "title": "Visit Our Studio",
+      "viewLarger": "View in Google Maps"
     }
   }
 }

@@ -1,49 +1,66 @@
 import Link from "next/link";
+import Image from "next/image";
 
-export default function HeroMinimal() {
+interface HeroMinimalProps {
+  title?: string;
+  subtitle?: string;
+  backgroundImage?: string;
+}
+
+export default function HeroMinimal({ title, subtitle, backgroundImage }: HeroMinimalProps = {}) {
   return (
-    <section className="relative isolate min-h-[86vh] w-full overflow-hidden">
-      {/* deep navy background tint + subtle radial highlights */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(1000px 500px at 70% 10%, rgba(124,58,237,0.15), transparent 60%), radial-gradient(800px 400px at 20% 60%, rgba(14,165,233,0.12), transparent 60%), #0b1020",
-        }}
-      />
+    <section className="relative isolate min-h-[50vh] md:min-h-[60vh] w-full overflow-hidden">
+      {backgroundImage ? (
+        <>
+          {/* Background Image */}
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src={backgroundImage}
+              alt="Hero background"
+              fill
+              className="object-cover scale-105"
+              priority
+              quality={90}
+            />
+            {/* Elegant gradient overlay for better text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-[var(--background)]" />
+            
+            {/* Subtle vignette effect */}
+            <div className="absolute inset-0 bg-radial-gradient opacity-40" style={{
+              background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%)'
+            }} />
+          </div>
+        </>
+      ) : (
+        <>
+          {/* Soft gradient background matching our color scheme */}
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10"
+            style={{
+              background:
+                "radial-gradient(1200px 600px at 60% 20%, rgba(194,155,114,0.12), transparent 70%), radial-gradient(1000px 500px at 30% 70%, rgba(212,196,176,0.08), transparent 70%), var(--background)",
+            }}
+          />
+          
+          {/* Floating decorative orbs */}
+          <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-[var(--primary)]/10 to-transparent rounded-full blur-3xl animate-float" aria-hidden />
+          <div className="absolute bottom-20 left-20 w-48 h-48 bg-gradient-to-br from-[var(--accent-sand)]/15 to-transparent rounded-full blur-3xl animate-float-delayed" aria-hidden />
+        </>
+      )}
 
-      <div className="relative mx-auto flex max-w-5xl flex-col items-center px-4 pb-24 pt-36 text-center sm:pt-40">
-        {/* rating pill */}
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80 backdrop-blur">
-          Рейтинг 4.9/5 — 1,000+ клиентов
-        </div>
-
-        <h1 className="text-balance text-4xl font-bold leading-tight tracking-tight text-white sm:text-6xl md:text-7xl">
-          Снимаем эмоции.
-          <br />
-          Создаём истории.
+      <div className="relative mx-auto flex max-w-5xl flex-col items-center px-4 pb-16 pt-32 md:pt-40 text-center">
+        <h1 className={`text-balance text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6 ${
+          backgroundImage ? 'text-white drop-shadow-lg' : 'text-[var(--foreground)]'
+        }`}>
+          {title || "Снимаем эмоции. Создаём истории."}
         </h1>
 
-        <p className="mt-6 max-w-3xl text-pretty text-lg leading-8 text-white/75">
-          Портреты, love story, семейные и коммерческие съёмки. Наш подход — свет, цвет и атмосфера
-          ради идеального кадра в один клик.
+        <p className={`mt-4 max-w-3xl text-pretty text-lg md:text-xl leading-relaxed ${
+          backgroundImage ? 'text-white/90 drop-shadow-md' : 'text-[var(--foreground-secondary)]'
+        }`}>
+          {subtitle || "Портреты, love story, семейные и коммерческие съёмки. Наш подход — свет, цвет и атмосфера ради идеального кадра."}
         </p>
-
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <Link
-            href="#booking"
-            className="rounded-full bg-violet-500 px-7 py-3 text-sm font-medium text-white shadow-lg shadow-violet-500/30 transition hover:bg-violet-400"
-          >
-            Заказать съёмку
-          </Link>
-          <Link
-            href="#about"
-            className="rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-medium text-white/90 backdrop-blur transition hover:bg-white/10"
-          >
-            Узнать больше →
-          </Link>
-        </div>
       </div>
     </section>
   );

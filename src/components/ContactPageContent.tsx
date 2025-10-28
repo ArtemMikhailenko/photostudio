@@ -58,13 +58,7 @@ export default function ContactPageContent() {
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-float-delayed" aria-hidden />
         
         <div className="relative mx-auto flex max-w-5xl flex-col items-center px-4 py-20 text-center z-10">
-          {/* Badge */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-medium text-white/90 backdrop-blur-md shadow-lg animate-slideIn">
-            <svg className="w-4 h-4 text-[var(--primary)]" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-            </svg>
-            <span>Tel Aviv, Israel</span>
-          </div>
+         
 
           <h1 className="text-balance text-4xl md:text-5xl lg:text-7xl font-bold leading-tight tracking-tight mb-6 text-white drop-shadow-2xl animate-slideIn" style={{animationDelay: '0.1s'}}>
             {t('title')}
@@ -98,7 +92,7 @@ export default function ContactPageContent() {
         </div>
       </section>
       
-      <section className="relative py-16 md:py-24 px-4 overflow-hidden">
+      <section className="relative py-16 md:pb-24 pt-10 px-4 overflow-hidden">
         {/* Animated particles */}
         <div className="absolute top-0 left-1/4 w-2 h-2 bg-[var(--primary)] rounded-full opacity-60 animate-float" aria-hidden />
         <div className="absolute top-20 right-1/3 w-3 h-3 bg-white/40 rounded-full opacity-40 animate-float-delayed" aria-hidden />

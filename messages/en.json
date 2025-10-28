@@ -284,5 +284,71 @@
       "title": "Visit Our Studio",
       "viewLarger": "View in Google Maps"
     }
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Where creativity meets precision. Every frame tells a story.",
+    "badge": "Est. 2020",
+    "mission": {
+      "title": "Our Mission",
+      "text": "We believe photography is more than just pressing a button. It's about capturing authentic moments, raw emotions, and timeless memories that last forever."
+    },
+    "story": {
+      "title": "Our Story",
+      "text": "Founded in Tel Aviv in 2020, SIMILIA grew from a passion project into a full-service creative studio. We've worked with hundreds of clients, from personal portraits to commercial campaigns."
+    },
+    "values": {
+      "title": "What We Value",
+      "creativity": {
+        "title": "Creativity",
+        "text": "Every project is unique. We approach each shoot with fresh eyes and innovative ideas."
+      },
+      "quality": {
+        "title": "Quality",
+        "text": "Professional equipment, meticulous post-processing, and attention to every detail."
+      },
+      "authenticity": {
+        "title": "Authenticity",
+        "text": "We capture real moments, genuine emotions, and natural beauty."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "text": "Your vision matters. We work together to bring your ideas to life."
+      }
+    },
+    "team": {
+      "title": "Meet the Team",
+      "subtitle": "Passionate creators dedicated to visual storytelling",
+      "photographer": {
+        "name": "Alex Chen",
+        "role": "Lead Photographer",
+        "bio": "10+ years capturing moments across fashion, portraits and events."
+      },
+      "videographer": {
+        "name": "Sarah Miller",
+        "role": "Videographer",
+        "bio": "Specialist in cinematic storytelling and commercial content."
+      },
+      "editor": {
+        "name": "David Park",
+        "role": "Creative Director",
+        "bio": "Award-winning post-production and creative vision expert."
+      }
+    },
+    "stats": {
+      "projects": "500+",
+      "projectsLabel": "Projects Completed",
+      "clients": "300+",
+      "clientsLabel": "Happy Clients",
+      "awards": "15+",
+      "awardsLabel": "Awards Won",
+      "years": "5+",
+      "yearsLabel": "Years of Excellence"
+    },
+    "cta": {
+      "title": "Ready to Create Together?",
+      "subtitle": "Let's turn your vision into stunning visual stories",
+      "button": "Book a Session"
+    }
   }
 }

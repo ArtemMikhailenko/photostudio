@@ -16,7 +16,7 @@ export default function Header() {
     { key: "equipment", href: "/equipment", label: t('equipment'), isPage: true },
     { key: "gallery", href: "/gallery", label: t('gallery'), isPage: true },
     { key: "services", href: "#services", label: t('services') },
-    { key: "about", href: "#about", label: t('about') },
+    { key: "about", href: "/about", label: t('about'), isPage: true },
     { key: "contacts", href: "/contact", label: t('contacts'), isPage: true },
   ], [t]);
   
@@ -42,6 +42,8 @@ export default function Header() {
         setActive('/gallery');
       } else if (pathname === '/contact') {
         setActive('/contact');
+      } else if (pathname === '/about') {
+        setActive('/about');
       } else {
         setActive(window.location.hash);
       }

@@ -39,7 +39,7 @@ export default function BrandsMarquee() {
                   className={`relative text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight transition-transform duration-300 will-change-transform group-hover:scale-[1.03] ${
                     outline
                       ? "text-transparent"
-                      : "bg-gradient-to-b from-[#1E1E1E] via-[#1E1E1E] to-[#1E1E1E]/85 bg-clip-text text-transparent drop-shadow-[0_6px_18px_rgba(0,0,0,0.10)]"
+                      : "bg-gradient-to-b from-white via-white to-white/85 bg-clip-text text-transparent drop-shadow-[0_6px_18px_rgba(0,0,0,0.25)]"
                   }`}
                   style={
                     outline
@@ -89,7 +89,7 @@ export default function BrandsMarquee() {
   );
 
   return (
-    <section className="relative isolate bg-[#F6F3EF] py-10 text-[#1E1E1E] sm:py-14">
+    <section className="relative isolate py-10 text-white sm:py-14">
       {/* backdrop grain / subtle pattern */}
       <div
         aria-hidden

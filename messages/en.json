@@ -68,10 +68,12 @@
   },
   "booking": {
     "availableTimes": "Available times",
+    "summary": "Selected: {date}, at {time}.",
     "summaryBooked": "Your meeting is booked for {date}, at {time}.",
     "summaryChoose": "Choose a date and time to continue.",
     "chooseDateAndTime": "Choose a date and time to continue.",
     "continue": "Continue",
+    "selectService": "Select service",
     "weekdays": {
       "sun": "Sun",
       "mon": "Mon",
@@ -350,5 +352,35 @@
       "subtitle": "Let's turn your vision into stunning visual stories",
       "button": "Book a Session"
     }
+  },
+  "servicesMenu": {
+    "studio": "Studio (rental)",
+    "content2h": "Content in 2 hours",
+    "business": "Business photoshoot",
+    "fashion": "Fashion shoot",
+    "artist": "Artist shoot"
+  },
+  "servicePages": {
+    "content2h": {
+      "title": "Content in 2 hours",
+      "subtitle": "Fast content package",
+      "description": "A compact and effective session to refresh your social media and website visuals. Up to 2 hours in studio or on location with professional lighting and guidance."
+    },
+    "business": {
+      "title": "Business photoshoot",
+      "subtitle": "Personal branding & corporate",
+      "description": "Confident portraits and branding visuals for entrepreneurs and teams. We help with posing, styling suggestions and deliver clean, modern results."
+    },
+    "fashion": {
+      "title": "Fashion shoot",
+      "subtitle": "Editorial & lookbook",
+      "description": "Bold lighting, refined styling and direction for editorial, campaign or lookbook needs. We create a cohesive visual story for your brand."
+    },
+    "artist": {
+      "title": "Artist shoot",
+      "subtitle": "For musicians, actors, performers",
+      "description": "Expressive visuals that reflect your personality and artistic identity. Perfect for posters, releases, PR and social media."
+    }
   }
 }
+

@@ -15,7 +15,7 @@ export default function Header() {
     { key: "portfolio", href: "/portfolio", label: t('portfolio'), isPage: true },
     { key: "equipment", href: "/equipment", label: t('equipment'), isPage: true },
     { key: "gallery", href: "/gallery", label: t('gallery'), isPage: true },
-    { key: "services", href: "#services", label: t('services') },
+    { key: "services", href: "/services", label: t('services'), isPage: true },
     { key: "about", href: "/about", label: t('about'), isPage: true },
     { key: "contacts", href: "/contact", label: t('contacts'), isPage: true },
   ], [t]);
@@ -40,6 +40,8 @@ export default function Header() {
         setActive('/equipment');
       } else if (pathname === '/gallery') {
         setActive('/gallery');
+      } else if (pathname.startsWith('/services')) {
+        setActive('/services');
       } else if (pathname === '/contact') {
         setActive('/contact');
       } else if (pathname === '/about') {
@@ -78,6 +80,43 @@ export default function Header() {
     setLangOpen(false);
   }
 
+  function ServicesDropdown() {
+    const s = {
+      content2h: 'content2h',
+      business: 'business',
+      fashion: 'fashion',
+      artist: 'artist'
+    } as const;
+    const labels = {
+      content2h: useTranslations('servicesMenu')('content2h'),
+      business: useTranslations('servicesMenu')('business'),
+      fashion: useTranslations('servicesMenu')('fashion'),
+      artist: useTranslations('servicesMenu')('artist'),
+    };
+    const items = [
+      { key: s.content2h, href: '/services/content-2-hours', label: labels.content2h },
+      { key: s.business, href: '/services/business', label: labels.business },
+      { key: s.fashion, href: '/services/fashion', label: labels.fashion },
+      { key: s.artist, href: '/services/artist', label: labels.artist },
+    ];
+    return (
+      <div className="pointer-events-none absolute left-0 top-full z-50 mt-2 w-72 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+        <div className="overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-2 shadow-xl backdrop-blur-md pointer-events-auto">
+          {items.map((it) => (
+            <Link
+              key={it.key}
+              href={it.href}
+              className="flex items-center justify-between rounded-xl px-3 py-2 text-sm text-[#1E1E1E] transition hover:bg-white"
+            >
+              <span>{it.label}</span>
+              <svg className="h-4 w-4 opacity-50" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 5l6 5-6 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </Link>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <header className="fixed left-0 right-0 top-3 z-50 px-4">
       {/* Soft outer glow behind the header */}
@@ -112,74 +151,90 @@ export default function Header() {
               const isActive = active === item.href;
               return (
                 <li key={item.key} className="group relative">
-                  <Link
-                    href={item.href}
-                    onClick={() => setActive(item.href)}
-                    className={`relative inline-block px-4 py-2.5 text-[0.95rem] font-semibold transition-all duration-500 rounded-2xl overflow-hidden ${
-                      isActive 
-                        ? "text-[#1E1E1E] scale-105 shadow-lg" 
-                        : "text-[#4B4B4B] hover:text-[#1E1E1E] hover:scale-105"
-                    }`}
-                    aria-current={isActive ? "page" : undefined}
-                  >
-                    {/* Animated gradient background for active state */}
-                    <span 
-                      className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-[#E8DFD5] via-[#F6F3EF] to-[#D4C4B0] transition-all duration-500 ${
+                  {item.key !== 'services' ? (
+                    <Link
+                      href={item.href}
+                      onClick={() => setActive(item.href)}
+                      className={`relative inline-block px-4 py-2.5 text-[0.95rem] font-semibold transition-all duration-500 rounded-2xl overflow-hidden ${
                         isActive 
-                          ? "opacity-100 scale-100" 
-                          : "opacity-0 scale-90"
+                          ? "text-[#1E1E1E] scale-105 shadow-lg" 
+                          : "text-[#4B4B4B] hover:text-[#1E1E1E] hover:scale-105"
                       }`}
-                      aria-hidden="true"
-                    />
-                    
-                    {/* Decorative border for active state */}
-                    <span 
-                      className={`absolute inset-0 rounded-2xl border-2 border-[var(--primary)]/40 transition-all duration-500 ${
-                        isActive 
-                          ? "opacity-100 scale-100" 
-                          : "opacity-0 scale-90"
-                      }`}
-                      aria-hidden="true"
-                    />
-                    
-                    {/* Subtle glow effect for active state */}
-                    <span 
-                      className={`absolute inset-0 rounded-2xl bg-[var(--primary)] blur-xl transition-all duration-500 ${
-                        isActive 
-                          ? "opacity-20" 
-                          : "opacity-0"
-                      }`}
-                      aria-hidden="true"
-                    />
-                    
-                    {/* Hover background effect - glass morphism */}
-                    <span 
-                      className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-white/60 via-white/30 to-white/40 backdrop-blur-sm transition-all duration-300 ${
-                        isActive 
-                          ? "opacity-0" 
-                          : "opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100"
-                      }`}
-                      aria-hidden="true"
-                    />
-                    
-                    {/* Shimmer effect on hover */}
-                    <span 
-                      className={`absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12 ${
-                        isActive ? "hidden" : ""
-                      }`}
-                      aria-hidden="true"
-                    />
-                    
-                    {/* Accent dot indicator for active state */}
-                    {isActive && (
+                      aria-current={isActive ? "page" : undefined}
+                    >
                       <span 
-                        className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--primary-hover)] animate-pulse shadow-lg"
+                        className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-[#E8DFD5] via-[#F6F3EF] to-[#D4C4B0] transition-all duration-500 ${
+                          isActive 
+                            ? "opacity-100 scale-100" 
+                            : "opacity-0 scale-90"
+                        }`}
                         aria-hidden="true"
                       />
-                    )}
-                    
-                    <span className="relative z-10">{item.label}</span>
-                  </Link>
+                      <span 
+                        className={`absolute inset-0 rounded-2xl border-2 border-[var(--primary)]/40 transition-all duration-500 ${
+                          isActive 
+                            ? "opacity-100 scale-100" 
+                            : "opacity-0 scale-90"
+                        }`}
+                        aria-hidden="true"
+                      />
+                      <span 
+                        className={`absolute inset-0 rounded-2xl bg-[var(--primary)] blur-xl transition-all duration-500 ${
+                          isActive 
+                            ? "opacity-20" 
+                            : "opacity-0"
+                        }`}
+                        aria-hidden="true"
+                      />
+                      <span 
+                        className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-white/60 via-white/30 to-white/40 backdrop-blur-sm transition-all duration-300 ${
+                          isActive 
+                            ? "opacity-0" 
+                            : "opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100"
+                        }`}
+                        aria-hidden="true"
+                      />
+                      <span 
+                        className={`absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12 ${
+                          isActive ? "hidden" : ""
+                        }`}
+                        aria-hidden="true"
+                      />
+                      {isActive && (
+                        <span 
+                          className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--primary-hover)] animate-pulse shadow-lg"
+                          aria-hidden="true"
+                        />
+                      )}
+                      <span className="relative z-10">{item.label}</span>
+                    </Link>
+                  ) : (
+                    <div className="relative">
+                      <Link
+                        href={item.href}
+                        onClick={() => setActive(item.href)}
+                        className={`relative inline-flex items-center gap-1 px-4 py-2.5 text-[0.95rem] font-semibold transition-all duration-500 rounded-2xl overflow-hidden ${
+                          isActive 
+                            ? "text-[#1E1E1E] scale-105 shadow-lg" 
+                            : "text-[#4B4B4B] hover:text-[#1E1E1E] hover:scale-105"
+                        }`}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        <span className="relative z-10">{item.label}</span>
+                        <svg className="h-4 w-4 opacity-70" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 7l5 6 5-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        <span 
+                          className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-white/60 via-white/30 to-white/40 backdrop-blur-sm transition-all duration-300 ${
+                            isActive 
+                              ? "opacity-0" 
+                              : "opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100"
+                          }`}
+                          aria-hidden="true"
+                        />
+                      </Link>
+                      {/* Dropdown */}
+                      <ServicesDropdown />
+                    </div>
+                  )}
                 </li>
               );
             })}

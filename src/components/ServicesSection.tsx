@@ -209,13 +209,12 @@ export default function ServicesSection() {
 
   return (
     <section className="relative mx-auto w-full max-w-7xl px-4 py-16 sm:py-24">
-      {/* subtle backdrop */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-[#B37A45]/[0.04] to-transparent" />
+  
 
       <div className="mb-8 flex items-end justify-between">
         <div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#1E1E1E]">{t('title')}</h2>
-          <p className="mt-2 text-[#4B4B4B]">{t('subtitle')}</p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">{t('title')}</h2>
+          <p className="mt-2 text-white/80">{t('subtitle')}</p>
         </div>
       </div>
 

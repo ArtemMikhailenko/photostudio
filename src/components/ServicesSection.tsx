@@ -108,14 +108,14 @@ export default function ServicesSection() {
       title: tSP("fashion.title"),
       subtitle: tSP("fashion.subtitle"),
       href: "/services/fashion",
-      image: "/images/studio/R3N07236-HDR.jpg",
+      image: "/images/studio/R3N07236-HDR.webp",
     },
     {
       // Artist shoot
       title: tSP("artist.title"),
       subtitle: tSP("artist.subtitle"),
       href: "/services/artist",
-      image: "/images/studio/R3N07261.jpg",
+      image: "/images/studio/R3N07261.webp",
     },
   ];
 

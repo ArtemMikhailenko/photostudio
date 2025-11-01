@@ -24,9 +24,9 @@ export default async function StudioRentalPage({ params: { locale } }: Props) {
       service="studio"
       features={[ts('bullet1'), ts('bullet2'), ts('bullet3')]}
       media={[
-        { type: 'image', src: '/images/studio/R3N07178-HDR-2.jpg', alt: 'Studio space' },
-        { type: 'image', src: '/images/studio/R3N07230-Pano.jpg', alt: 'Studio pano' },
-        { type: 'image', src: '/images/studio/R3N07255.jpg', alt: 'Equipment corner' }
+        { type: 'image', src: '/images/studio/R3N07178-HDR-2.webp', alt: 'Studio space' },
+        { type: 'image', src: '/images/studio/R3N07230-Pano.webp', alt: 'Studio pano' },
+        { type: 'image', src: '/images/studio/R3N07255.webp', alt: 'Equipment corner' }
       ]}
     />
   );

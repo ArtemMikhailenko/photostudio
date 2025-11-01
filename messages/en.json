@@ -90,10 +90,10 @@
     "studio": {
       "title": "STUDIO",
       "subtitle": "RENTAL",
-      "badge": "From 250 ₪/h",
-      "bullet1": "Hourly rental",
-      "bullet2": "Professional equipment",
-      "bullet3": "Flexible schedule"
+      "badge": "From 215 ₪/h + VAT",
+      "bullet1": "Studio rental 215 ₪/h + VAT",
+      "bullet2": "Add photographer +300 ₪/h",
+      "bullet3": "Add videographer +300 ₪/h"
     },
     "content": {
       "title": "CONTENT",
@@ -362,6 +362,16 @@
     "artist": "Artist shoot"
   },
   "servicePages": {
+    "studio": {
+      "title": "Studio rental",
+      "subtitle": "Hourly studio access",
+      "description": "Rent the studio for your own shoots. Base price 215 ₪/h + VAT. You can add our team members if needed.",
+      "pricing": {
+        "base": "Studio rental — 215 ₪/h + VAT",
+        "photographer": "Add photographer — +300 ₪/h",
+        "videographer": "Add videographer — +300 ₪/h"
+      }
+    },
     "content2h": {
       "title": "Content in 2 hours",
       "subtitle": "Fast content package",

@@ -10,6 +10,7 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
+  const [servicesOpen, setServicesOpen] = useState(false);
   
   const NAV = useMemo(() => [
     { key: "portfolio", href: "/portfolio", label: t('portfolio'), isPage: true },
@@ -81,7 +82,7 @@ export default function Header() {
     setLangOpen(false);
   }
 
-  function ServicesDropdown() {
+  function ServicesDropdown({ open }: { open: boolean }) {
     const s = {
       content2h: 'content2h',
       business: 'business',
@@ -93,16 +94,18 @@ export default function Header() {
       business: useTranslations('servicesMenu')('business'),
       fashion: useTranslations('servicesMenu')('fashion'),
       artist: useTranslations('servicesMenu')('artist'),
+      studio: useTranslations('servicesMenu')('studio'),
     };
     const items = [
+      { key: 'studio', href: '/services/studio', label: labels.studio },
       { key: s.content2h, href: '/services/content-2-hours', label: labels.content2h },
       { key: s.business, href: '/services/business', label: labels.business },
       { key: s.fashion, href: '/services/fashion', label: labels.fashion },
       { key: s.artist, href: '/services/artist', label: labels.artist },
     ];
     return (
-      <div className="pointer-events-none absolute left-0 top-full z-50 mt-2 w-72 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-        <div className="overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-2 shadow-xl backdrop-blur-md pointer-events-auto">
+      <div className={`absolute left-0 top-full z-50 mt-2 w-72 transition-opacity duration-200 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <div className="overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-2 shadow-xl backdrop-blur-md">
           {items.map((it) => (
             <Link
               key={it.key}
@@ -151,7 +154,7 @@ export default function Header() {
             {NAV.map((item) => {
               const isActive = active === item.href;
               return (
-                <li key={item.key} className="group relative">
+                <li key={item.key} className="relative">
                   {item.key !== 'services' ? (
                     <Link
                       href={item.href}
@@ -210,7 +213,7 @@ export default function Header() {
                       <span className="relative z-10">{item.label}</span>
                     </Link>
                   ) : (
-                    <div className="relative">
+                    <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
                       <Link
                         href={item.href}
                         onClick={() => setActive(item.href)}
@@ -227,13 +230,13 @@ export default function Header() {
                           className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-white/60 via-white/30 to-white/40 backdrop-blur-sm transition-all duration-300 ${
                             isActive 
                               ? "opacity-0" 
-                              : "opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100"
+                              : "opacity-0"
                           }`}
                           aria-hidden="true"
                         />
                       </Link>
                       {/* Dropdown */}
-                      <ServicesDropdown />
+                      <ServicesDropdown open={servicesOpen} />
                     </div>
                   )}
                 </li>

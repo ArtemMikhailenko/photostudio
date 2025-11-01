@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {useTranslations, useLocale} from 'next-intl'
 import { useRouter } from '@/i18n/routing';
 
@@ -36,6 +36,39 @@ export default function BookingCalendarSection({ service }: { service?: string }
   const [durationHours, setDurationHours] = useState<number>(2)
   const [busy, setBusy] = useState<Array<{start: string; end: string; colorId?: string | null; summary?: string}>>([])
   const [calendarWarning, setCalendarWarning] = useState<string | null>(null)
+  const [open, setOpen] = useState(false)
+  const [focusIdx, setFocusIdx] = useState(0)
+  const ddRef = useRef<HTMLDivElement>(null)
+
+  const serviceOptions = useMemo(
+    () => [
+      { value: 'studio', label: sm('studio') },
+      { value: 'content-2-hours', label: sm('content2h') },
+      { value: 'business', label: sm('business') },
+      { value: 'fashion', label: sm('fashion') },
+      { value: 'artist', label: sm('artist') },
+    ],
+    [sm]
+  )
+
+  // close dropdown on outside click
+  useEffect(() => {
+    function onDoc(e: MouseEvent | TouchEvent) {
+      if (!ddRef.current) return
+      if (!ddRef.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', onDoc)
+    document.addEventListener('touchstart', onDoc)
+    return () => {
+      document.removeEventListener('mousedown', onDoc)
+      document.removeEventListener('touchstart', onDoc)
+    }
+  }, [])
+
+  function selectService(value: string) {
+    setServiceSel(value)
+    setOpen(false)
+  }
 
   const monthName = useMemo(
     () => new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(new Date(viewYear, viewMonth, 1)),
@@ -171,7 +204,9 @@ export default function BookingCalendarSection({ service }: { service?: string }
 
       <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
         {/* glass container */}
-        <div className="relative overflow-hidden rounded-2xl border border-white/30 bg-gradient-to-br from-black/35 via-black/25 to-black/20 backdrop-blur-xl shadow-[0_20px_60px_-20px_rgba(0,0,0,0.35)]">
+        <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-white/1 backdrop-blur-md shadow-[0_24px_70px_-24px_rgba(0,0,0,0.45)]">
+          {/* soft ambient bronze */}
+          <div aria-hidden className="pointer-events-none absolute -inset-1 opacity-70" style={{background:'radial-gradient(900px 320px at 8% 0%, rgba(194,155,114,0.18), transparent 60%)'}}/>
           {/* inner divider */}
           <div className="absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-white/10 sm:block" />
 
@@ -184,33 +219,81 @@ export default function BookingCalendarSection({ service }: { service?: string }
                   <span className="text-sm font-semibold text-white/90">{t('selectService')}</span>
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--primary)]/80" aria-hidden />
                 </div>
-                <div className="relative">
-                  <svg className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3 7h7l-5.5 4 2 8-6.5-4.5L5.5 21l2-8L2 9h7l3-7z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  <select
-                    value={serviceSel}
-                    onChange={(e) => setServiceSel(e.target.value)}
-                    className="min-w-[220px] rounded-xl border border-white/40 bg-white/20 px-9 py-2 text-sm font-medium text-white/95 shadow-md backdrop-blur-md transition hover:bg-white/30 focus:outline-none focus:ring-4 focus:ring-white/30"
+                <div className="relative" ref={ddRef}>
+                  <button
+                    type="button"
+                    aria-haspopup="listbox"
+                    aria-expanded={open}
+                    onClick={() => {
+                      const idx = serviceOptions.findIndex(o => o.value === serviceSel)
+                      setFocusIdx(Math.max(0, idx))
+                      setOpen(v => !v)
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                        e.preventDefault()
+                        if (!open) setOpen(true)
+                        const dir = e.key === 'ArrowDown' ? 1 : -1
+                        setFocusIdx((i) => {
+                          const n = (i + dir + serviceOptions.length) % serviceOptions.length
+                          return n
+                        })
+                      } else if (e.key === 'Enter' && open) {
+                        e.preventDefault()
+                        const opt = serviceOptions[focusIdx]
+                        if (opt) selectService(opt.value)
+                      } else if (e.key === 'Escape') {
+                        setOpen(false)
+                      }
+                    }}
+                    className="min-w-[240px] rounded-[22px] border border-white/35 bg-white/15 px-4 pl-10 pr-8 py-2 text-base text-white/95 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.25)] backdrop-blur-2xl transition hover:bg-white/20 focus:outline-none"
                   >
-                    <option value="studio">{sm('studio')}</option>
-                    <option value="content-2-hours">{sm('content2h')}</option>
-                    <option value="business">{sm('business')}</option>
-                    <option value="fashion">{sm('fashion')}</option>
-                    <option value="artist">{sm('artist')}</option>
-                  </select>
+                    {/* left icon */}
+                    <svg className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    {serviceOptions.find(o => o.value === serviceSel)?.label}
+                    {/* right chevron */}
+                    <svg className={`pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/80 transition-transform ${open ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                  </button>
+
+                  {open && (
+                    <div className="absolute right-0 z-20 mt-2 w-[300px] min-w-[260px] overflow-hidden rounded-2xl border border-white/60 bg-white/80 text-[#1A1A1A] backdrop-blur-3xl shadow-[0_28px_70px_-24px_rgba(0,0,0,0.55)]">
+                      <div aria-hidden className="pointer-events-none absolute inset-0" style={{background:'linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.75))'}}/>
+                      <ul role="listbox" aria-activedescendant={`opt-${focusIdx}`} className="relative max-h-64 overflow-auto py-2">
+                        {serviceOptions.map((opt, idx) => {
+                          const active = idx === focusIdx
+                          const selected = opt.value === serviceSel
+                          return (
+                            <li
+                              id={`opt-${idx}`}
+                              key={opt.value}
+                              role="option"
+                              aria-selected={selected}
+                              onMouseEnter={() => setFocusIdx(idx)}
+                              onMouseDown={(e) => { e.preventDefault(); selectService(opt.value) }}
+                              className={`mx-1 flex cursor-pointer items-center justify-between rounded-xl px-3 py-2 text-sm ${active ? 'bg-black/5' : 'hover:bg-black/5'}`}
+                            >
+                              <span>{opt.label}</span>
+                              {selected && <svg width="16" height="16" viewBox="0 0 24 24" className="text-[#1A1A1A]" fill="currentColor"><path d="M9 16.2l-3.5-3.5 1.4-1.4L9 13.4l7.7-7.7 1.4 1.4z"/></svg>}
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="mb-4 flex items-center justify-between">
-                <button onClick={() => changeMonth(-1)} className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-white/80 hover:bg-white/20">‹</button>
+                <button onClick={() => changeMonth(-1)} className="rounded-full border border-white/15 bg-white/10 px-3 py-2 text-white/80 hover:bg-white/20">‹</button>
                 <div className="text-lg font-semibold text-white/90">{monthName}</div>
-                <button onClick={() => changeMonth(1)} className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-white/80 hover:bg-white/20">›</button>
+                <button onClick={() => changeMonth(1)} className="rounded-full border border-white/15 bg-white/10 px-3 py-2 text-white/80 hover:bg-white/20">›</button>
               </div>
 
-              <div className="grid grid-cols-7 gap-1 text-center text-xs font-medium text-white/60">
+              <div className="grid grid-cols-7 gap-1 text-center text-[11px] font-medium text-white/70">
                 {weekdays.map(d => (
-                  <div key={d} className="py-2">{d}</div>
+                  <div key={d} className="py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">{d}</div>
                 ))}
               </div>
-              <div className="grid grid-cols-7 gap-1">
+              <div className="mt-1 grid grid-cols-7 gap-1">
                 {days.map((d, i) => {
                   const isToday = d === now.getDate() && viewMonth === now.getMonth() && viewYear === now.getFullYear()
                   const isSelected = !!selected && d && selected.getDate() === d && selected.getMonth() === viewMonth && selected.getFullYear() === viewYear
@@ -221,8 +304,8 @@ export default function BookingCalendarSection({ service }: { service?: string }
                       disabled={isPlaceholder}
                       onClick={() => selectDay(d)}
                       className={`relative h-12 rounded-2xl text-sm transition-all ${
-                        isPlaceholder ? 'opacity-0 cursor-default' : 'text-white/90 hover:bg-white/10'
-                      } ${isSelected ? 'border border-white/40 bg-white/15 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)]' : ''} ${isToday && !isSelected ? 'ring-1 ring-white/30' : ''}`}
+                        isPlaceholder ? 'opacity-0 cursor-default' : 'text-white/90 border border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur-sm'
+                      } ${isSelected ? 'border-white/40 bg-white/15 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)]' : ''} ${isToday && !isSelected ? 'ring-1 ring-white/25' : ''}`}
                     >
                       {!isPlaceholder && (
                         <span className="relative z-[1]">{d}</span>
@@ -244,7 +327,12 @@ export default function BookingCalendarSection({ service }: { service?: string }
 
             {/* right: times */}
             <div className="p-6 sm:p-8">
-              <div className="mb-3 text-sm font-medium text-white/75">{t('availableTimes')}</div>
+              <div className="mb-2 text-sm font-medium text-white/75">{t('availableTimes')}</div>
+              {/* Legend */}
+              <div className="mb-3 flex items-center gap-3 text-[11px] text-white/70">
+                <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-sky-400/70"/>rent</span>
+                <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-emerald-400/70"/>services</span>
+              </div>
               <div className="max-h-[360px] grid grid-cols-1 gap-3 overflow-auto pr-1 sm:grid-cols-2">
                 {times.map(({ t: time }) => {
                   const selectedTime = slot === time
@@ -274,12 +362,12 @@ export default function BookingCalendarSection({ service }: { service?: string }
                           }
                         }
                       }}
-                      className={`relative h-12 w-full rounded-2xl border px-4 text-center text-base transition-all backdrop-blur-md ${
+                      className={`relative h-12 w-full rounded-2xl border px-4 text-center text-base transition-all backdrop-blur-xl ${
                         selectedTime
-                          ? 'border-transparent bg-[var(--primary)] text-white shadow-[0_10px_30px_-10px_rgba(194,155,114,0.8)] scale-[1.02]'
+                          ? 'border-transparent bg-[var(--primary)]/90 text-white shadow-[0_10px_30px_-10px_rgba(194,155,114,0.8)] scale-[1.02]'
                           : disabledByBusy 
                           ? `${colorClass} text-white/50 cursor-not-allowed`
-                          : 'border-white/20 bg-white/10 text-white/90 hover:bg-white/20'
+                          : 'border-white/15 bg-white/8 text-white/90 hover:bg-white/15'
                       }`}
                     >
                       {!selectedTime && !disabledByBusy && (

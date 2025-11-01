@@ -6,12 +6,14 @@ type Props = { params: { locale: string } };
 export default async function BusinessPage({ params: { locale } }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('servicePages.business');
+  const tp = await getTranslations('services.production');
   return (
     <ServicePageTemplate
       title={t('title')}
       subtitle={t('subtitle')}
       description={<p>{t('description')}</p>}
       service="business"
+      features={[tp('bullet1'), tp('bullet2'), tp('bullet3')]}
       media={[
         { type: 'image', src: '/images/works-4x3.webp', alt: 'Business portrait' },
         { type: 'image', src: '/images/equipment-4x3.webp', alt: 'Lighting setup' },

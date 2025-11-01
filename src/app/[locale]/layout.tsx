@@ -64,8 +64,17 @@ export default async function LocaleLayout({
     <html lang={locale} dir={locale === 'he' ? 'rtl' : 'ltr'}>
       <body className={`${manrope.variable} ${geistMono.variable} ${display.variable} ${locale === 'he' ? hebrew.variable : ''} antialiased font-sans`}>
         <NextIntlClientProvider messages={messages} locale={locale}>
+          {/* Global fixed background for all pages */}
+          <div className="fixed inset-0 -z-10">
+            <img
+              src="/images/site-bg.webp"
+              alt="Background"
+              className="h-full w-full object-cover"
+            />
+          </div>
           <Header />
           {children}
+          <Footer />
           {/* <GlobalParticles /> */}
         </NextIntlClientProvider>
       </body>

@@ -6,6 +6,7 @@ type Props = { params: { locale: string } };
 export default async function ContentTwoHoursPage({ params: { locale } }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('servicePages.content2h');
+  const ts = await getTranslations('services.content');
   return (
     <ServicePageTemplate
       title={t('title')}

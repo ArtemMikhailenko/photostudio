@@ -6,6 +6,7 @@ import {useRouter, usePathname, Link} from '@/i18n/routing';
 
 export default function Header() {
   const t = useTranslations('header');
+  const tServices = useTranslations('servicesMenu');
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -82,44 +83,13 @@ export default function Header() {
     setLangOpen(false);
   }
 
-  function ServicesDropdown({ open }: { open: boolean }) {
-    const s = {
-      content2h: 'content2h',
-      business: 'business',
-      fashion: 'fashion',
-      artist: 'artist'
-    } as const;
-    const labels = {
-      content2h: useTranslations('servicesMenu')('content2h'),
-      business: useTranslations('servicesMenu')('business'),
-      fashion: useTranslations('servicesMenu')('fashion'),
-      artist: useTranslations('servicesMenu')('artist'),
-      studio: useTranslations('servicesMenu')('studio'),
-    };
-    const items = [
-      { key: 'studio', href: '/services/studio', label: labels.studio },
-      { key: s.content2h, href: '/services/content-2-hours', label: labels.content2h },
-      { key: s.business, href: '/services/business', label: labels.business },
-      { key: s.fashion, href: '/services/fashion', label: labels.fashion },
-      { key: s.artist, href: '/services/artist', label: labels.artist },
-    ];
-    return (
-      <div className={`absolute left-0 top-full z-50 mt-2 w-72 transition-opacity duration-200 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className="overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-2 shadow-xl backdrop-blur-md">
-          {items.map((it) => (
-            <Link
-              key={it.key}
-              href={it.href}
-              className="flex items-center justify-between rounded-xl px-3 py-2 text-sm text-[#1E1E1E] transition hover:bg-white"
-            >
-              <span>{it.label}</span>
-              <svg className="h-4 w-4 opacity-50" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 5l6 5-6 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </Link>
-          ))}
-        </div>
-      </div>
-    );
-  }
+  const servicesItems = useMemo(() => [
+    { key: 'studio', href: '/services/studio', label: tServices('studio') },
+    { key: 'content2h', href: '/services/content-2-hours', label: tServices('content2h') },
+    { key: 'business', href: '/services/business', label: tServices('business') },
+    { key: 'fashion', href: '/services/fashion', label: tServices('fashion') },
+    { key: 'artist', href: '/services/artist', label: tServices('artist') },
+  ], [tServices]);
 
   return (
     <header className="fixed left-0 right-0 top-3 z-50 px-4">
@@ -131,7 +101,7 @@ export default function Header() {
 
       {/* Glassmorphism container that floats over hero */}
       <div className="mx-auto w-full max-w-7xl rounded-4xl border border-white/30 bg-white/15 shadow-lg backdrop-blur-sm">
-  <nav className="flex items-center justify-between px-5 py-1 md:py-0">
+        <nav className="flex items-center justify-between px-5 py-1 md:py-0">
           {/* Brand */}
           <Link
             href="/"
@@ -213,7 +183,11 @@ export default function Header() {
                       <span className="relative z-10">{item.label}</span>
                     </Link>
                   ) : (
-                    <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
+                    <div 
+                      className="relative" 
+                      onMouseEnter={() => setServicesOpen(true)} 
+                      onMouseLeave={() => setServicesOpen(false)}
+                    >
                       <Link
                         href={item.href}
                         onClick={() => setActive(item.href)}
@@ -225,18 +199,47 @@ export default function Header() {
                         aria-current={isActive ? "page" : undefined}
                       >
                         <span className="relative z-10">{item.label}</span>
-                        <svg className="h-4 w-4 opacity-70" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 7l5 6 5-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        <svg className="h-4 w-4 opacity-70" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M5 7l5 6 5-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
                         <span 
-                          className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-white/60 via-white/30 to-white/40 backdrop-blur-sm transition-all duration-300 ${
+                          className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-[#E8DFD5] via-[#F6F3EF] to-[#D4C4B0] transition-all duration-500 ${
                             isActive 
-                              ? "opacity-0" 
-                              : "opacity-0"
+                              ? "opacity-100 scale-100" 
+                              : "opacity-0 scale-90"
+                          }`}
+                          aria-hidden="true"
+                        />
+                        <span 
+                          className={`absolute inset-0 rounded-2xl border-2 border-[var(--primary)]/40 transition-all duration-500 ${
+                            isActive 
+                              ? "opacity-100 scale-100" 
+                              : "opacity-0 scale-90"
                           }`}
                           aria-hidden="true"
                         />
                       </Link>
-                      {/* Dropdown */}
-                      <ServicesDropdown open={servicesOpen} />
+                      {/* Dropdown с padding вместо margin для создания "моста" */}
+                      <div 
+                        className={`absolute left-0 top-full z-50 pt-2 w-72 transition-opacity duration-200 ${
+                          servicesOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                        }`}
+                      >
+                        <div className="overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-2 shadow-xl backdrop-blur-md">
+                          {servicesItems.map((it) => (
+                            <Link
+                              key={it.key}
+                              href={it.href}
+                              className="flex items-center justify-between rounded-xl px-3 py-2 text-sm text-[#1E1E1E] transition hover:bg-white"
+                            >
+                              <span>{it.label}</span>
+                              <svg className="h-4 w-4 opacity-50" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 5l6 5-6 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   )}
                 </li>

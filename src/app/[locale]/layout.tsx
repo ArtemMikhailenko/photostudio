@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Manrope, Unbounded } from "next/font/google";
+import { Geist_Mono, Manrope, Unbounded, Rubik } from "next/font/google";
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import {routing} from '@/i18n/routing';
@@ -23,6 +23,13 @@ const geistMono = Geist_Mono({
 const display = Unbounded({
   variable: "--font-display",
   subsets: ["latin", "latin-ext", "cyrillic"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+// Hebrew-friendly font to ensure proper glyph coverage for RTL
+const hebrew = Rubik({
+  variable: "--font-hebrew",
+  subsets: ["hebrew"],
   weight: ["400", "500", "600", "700", "800"],
 });
 
@@ -54,8 +61,8 @@ export default async function LocaleLayout({
   const messages = await getMessages();
  
   return (
-    <html lang={locale}>
-      <body className={`${manrope.variable} ${geistMono.variable} ${display.variable} antialiased font-sans`}>
+    <html lang={locale} dir={locale === 'he' ? 'rtl' : 'ltr'}>
+      <body className={`${manrope.variable} ${geistMono.variable} ${display.variable} ${locale === 'he' ? hebrew.variable : ''} antialiased font-sans`}>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Header />
           {children}

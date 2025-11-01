@@ -1,385 +1,131 @@
-'use client'
-import { useState, useRef } from 'react'
+"use client"
+import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Thumbs, EffectFade, Autoplay } from 'swiper/modules'
-import type { Swiper as SwiperType } from 'swiper'
 
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/thumbs'
-import 'swiper/css/effect-fade'
-
-type GalleryImage = {
-  id: string
-  src: string
-  title: string
-  description: string
-  category: string
-}
-
+// Simple, photo-only gallery from /public/images/studio
+// - Rounded corners, large tiles
+// - 2 cols on mobile, 3 cols on desktop
+// - Minimal hover and a clean lightbox
 export default function GallerySection() {
-  const t = useTranslations('gallery')
-  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-  
-  const images: GalleryImage[] = [
-    {
-      id: '1',
-      src: '/images/gallery-4x3.webp',
-      title: t('images.studio1.title'),
-      description: t('images.studio1.description'),
-      category: 'studio'
-    },
-    {
-      id: '2',
-      src: '/images/works-4x3.webp',
-      title: t('images.studio2.title'),
-      description: t('images.studio2.description'),
-      category: 'studio'
-    },
-    {
-      id: '3',
-      src: '/images/equipment-4x3.webp',
-      title: t('images.equipment1.title'),
-      description: t('images.equipment1.description'),
-      category: 'equipment'
-    },
-    {
-      id: '4',
-      src: '/images/gallery-4x3.webp',
-      title: t('images.setup1.title'),
-      description: t('images.setup1.description'),
-      category: 'setup'
-    },
-    {
-      id: '5',
-      src: '/images/works-4x3.webp',
-      title: t('images.setup2.title'),
-      description: t('images.setup2.description'),
-      category: 'setup'
-    },
-    {
-      id: '6',
-      src: '/images/equipment-4x3.webp',
-      title: t('images.lighting1.title'),
-      description: t('images.lighting1.description'),
-      category: 'lighting'
-    },
-    {
-      id: '7',
-      src: '/images/gallery-4x3.webp',
-      title: t('images.studio3.title'),
-      description: t('images.studio3.description'),
-      category: 'studio'
-    },
-    {
-      id: '8',
-      src: '/images/works-4x3.webp',
-      title: t('images.equipment2.title'),
-      description: t('images.equipment2.description'),
-      category: 'equipment'
-    },
-    {
-      id: '9',
-      src: '/images/equipment-4x3.webp',
-      title: t('images.lighting1.title'),
-      description: t('images.lighting1.description'),
-      category: 'lighting'
-    },
-    {
-      id: '10',
-      src: '/images/gallery-4x3.webp',
-      title: t('images.studio1.title'),
-      description: t('images.studio1.description'),
-      category: 'studio'
-    }
+  const studioFiles = [
+    'R3N07178-HDR-2.jpg',
+    'R3N07183-HDR.jpg',
+    'R3N07210.jpg',
+    'R3N07219.jpg',
+    'R3N07221.jpg',
+    'R3N07227.jpg',
+    'R3N07230-Pano.jpg',
+    'R3N07236-HDR.jpg',
+    'R3N07240-HDR.jpg',
+    'R3N07251-HDR.jpg',
+    'R3N07254-HDR.jpg',
+    'R3N07255.jpg',
+    'R3N07261.jpg',
+    'R3N07270-HDR.jpg',
+    'R3N07280-HDR.jpg',
+    'R3N07282-HDR.jpg',
+    'R3N07287-HDR.jpg',
+    'R3N07290-HDR.jpg',
+    'R3N07292-HDR.jpg',
+    'R3N07294-HDR.jpg',
+    'R3N07305-HDR.jpg',
   ]
 
-  const currentImage = images[activeIndex]
+  const t = useTranslations('gallery')
+  const images = studioFiles.map((f, i) => ({ id: `studio-${i}`, src: `/images/studio/${f}` }))
+  const [lightbox, setLightbox] = useState<{ open: boolean; index: number }>({ open: false, index: 0 })
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden py-20 sm:py-28">
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="mb-16 text-center">
-          <div className="mb-4 inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 backdrop-blur-sm">
-            <span className="text-sm font-semibold uppercase tracking-wider text-white/80">
-              {t('badge')}
-            </span>
+    <section className="relative w-full overflow-hidden pt-28 md:pt-32 pb-14 sm:pb-20">
+      <div className="relative z-10 mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
+        {/* Subtle caption/title */}
+        <div className="mb-5 flex justify-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/40 px-4 py-1.5 text-sm font-semibold text-white/85 backdrop-blur-md">
+            <svg className="h-4 w-4 text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 7h4l2-3h6l2 3h4v12H3z"/><path d="M12 9a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            <span>{t('title')}</span>
           </div>
-          <h1 className="mb-4 text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl drop-shadow-2xl">
-            {t('title')}
-          </h1>
-          <p className="mx-auto max-w-2xl text-lg text-white/80 drop-shadow-lg">
-            {t('subtitle')}
-          </p>
         </div>
-
-        {/* Gallery Container */}
-        <div className="relative overflow-hidden rounded-[3rem] border border-white/20 bg-gradient-to-br from-white/10 via-white/5 to-transparent backdrop-blur-2xl shadow-2xl p-6 sm:p-8">
-          
-          {/* Inner glow effect */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#C29B72]/5 via-transparent to-white/10 rounded-[3rem]" />
-          
-          <div className="relative z-10">
-          
-
-          
-          {/* Large Featured Image - Swiper Main */}
-          <div className="relative">
-            <Swiper
-              modules={[Navigation, Thumbs, EffectFade]}
-              effect="fade"
-              fadeEffect={{ crossFade: true }}
-              thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-              navigation={{
-                prevEl: '.swiper-button-prev-custom',
-                nextEl: '.swiper-button-next-custom',
-              }}
-              onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-              className="gallery-main-swiper rounded-3xl overflow-hidden"
-              speed={700}
-              watchSlidesProgress={true}
-            >
-              {images.map((image, index) => (
-                <SwiperSlide key={image.id}>
-                  <div className="group relative overflow-hidden rounded-3xl border border-white/30 bg-white/10 backdrop-blur-xl shadow-2xl">
-                    
-                    {/* Featured Image Container */}
-                    <div className="relative aspect-[21/9] sm:aspect-[21/8] overflow-hidden">
-                      <Image
-                        src={image.src}
-                        alt={image.title}
-                        fill
-                        className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                        priority={index === 0}
-                        sizes="(max-width: 768px) 100vw, 90vw"
-                      />
-                      
-                      {/* Gradient overlays */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
-                      
-                      {/* Animated corner accents */}
-                      <div className="absolute left-0 top-0 h-40 w-40 bg-gradient-to-br from-[var(--primary)]/40 to-transparent opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
-                      <div className="absolute bottom-0 right-0 h-40 w-40 bg-gradient-to-tl from-[var(--primary)]/40 to-transparent opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
-                      
-                      {/* Scan line effect */}
-                      <div className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent animate-scan" />
-                      </div>
-                    </div>
-
-                    {/* Content Overlay */}
-                    <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 md:p-8">
-                      <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 sm:gap-6">
-                        <div className="flex-1">
-                          <div className="mb-2 sm:mb-3 inline-block rounded-full border border-white/30 bg-black/50 px-3 py-1 backdrop-blur-lg">
-                            <span className="text-xs font-semibold uppercase tracking-wider text-white/90">
-                              {t(`categories.${currentImage.category}`)}
-                            </span>
-                          </div>
-                          <h2 className="mb-2 text-2xl sm:text-3xl md:text-4xl font-bold text-white drop-shadow-2xl">
-                            {currentImage.title}
-                          </h2>
-                          <p className="max-w-2xl text-sm sm:text-base text-white/80 drop-shadow-lg">
-                            {currentImage.description}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <button className="swiper-button-prev-custom flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-black/50 backdrop-blur-lg shadow-lg transition-all duration-300 hover:scale-110 hover:bg-black/70 hover:border-[var(--primary)]/50">
-                            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                            </svg>
-                          </button>
-                          <button className="swiper-button-next-custom flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-black/50 backdrop-blur-lg shadow-lg transition-all duration-300 hover:scale-110 hover:bg-black/70 hover:border-[var(--primary)]/50">
-                            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-
-          {/* Thumbnail Slider - Swiper */}
-          <div className="relative mt-6">
-            <Swiper
-              modules={[Navigation, Thumbs]}
-              onSwiper={setThumbsSwiper}
-              spaceBetween={12}
-              slidesPerView="auto"
-              watchSlidesProgress={true}
-              slideToClickedSlide={true}
-              navigation={{
-                prevEl: '.thumb-prev',
-                nextEl: '.thumb-next',
-              }}
-              breakpoints={{
-                320: {
-                  spaceBetween: 8,
-                },
-                640: {
-                  spaceBetween: 12,
-                },
-                1024: {
-                  spaceBetween: 16,
-                }
-              }}
-              className="gallery-thumbs-swiper !py-4 !px-2"
-            >
-              {images.map((image, index) => {
-                const isActive = index === activeIndex
-                return (
-                <SwiperSlide key={image.id} className="!w-36 sm:!w-44 md:!w-52">
-                  <div
-                    className={`group relative cursor-pointer overflow-visible rounded-2xl transition-all duration-500 ${
-                      isActive ? 'scale-100' : 'scale-95 hover:scale-100'
-                    }`}
-                  >
-                      {/* Wrapper for border and shadow effects */}
-                      <div className={`relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-500 ${
-                        isActive
-                          ? 'border-[var(--primary)] bg-white/20 shadow-2xl shadow-[var(--primary)]/40'
-                          : 'border-white/30 bg-white/10 hover:border-white/50 hover:shadow-xl'
-                      }`}>
-                        {/* Thumbnail Image */}
-                        <div className="relative aspect-[4/3] overflow-hidden">
-                          <Image
-                            src={image.src}
-                            alt={image.title}
-                            fill
-                            sizes="250px"
-                            className={`object-cover transition-all duration-700 ${
-                              isActive 
-                                ? 'scale-105 brightness-110' 
-                                : 'scale-100 group-hover:scale-110 group-hover:brightness-110'
-                            }`}
-                          />
-                          
-                          {/* Overlay with gradient */}
-                          <div className={`absolute inset-0 transition-all duration-500 ${
-                            isActive
-                              ? 'bg-gradient-to-t from-[var(--primary)]/70 via-[var(--primary)]/20 to-transparent'
-                              : 'bg-gradient-to-t from-black/70 via-black/20 to-transparent group-hover:from-black/50'
-                          }`} />
-
-                          {/* Active Indicator */}
-                          {isActive && (
-                            <div className="absolute right-2 top-2">
-                              <div className="rounded-full border-2 border-white bg-[var(--primary)] p-1 shadow-lg animate-pulse">
-                                <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                </svg>
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Hover Eye Icon */}
-                          {!isActive && (
-                            <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-300 group-hover:opacity-100">
-                              <div className="rounded-full bg-black/60 p-3 backdrop-blur-lg border border-white/30 transform transition-transform duration-300 group-hover:scale-110">
-                                <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                </svg>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Thumbnail Info */}
-                        <div className="p-2 sm:p-3">
-                          <h3 className={`text-xs sm:text-sm font-bold transition-all duration-300 line-clamp-1 ${
-                            isActive ? 'text-white' : 'text-white/80 group-hover:text-white'
-                          }`}>
-                            {image.title}
-                          </h3>
-                          <div className="mt-1 sm:mt-1.5 flex items-center gap-2">
-                            <div className={`h-1 flex-1 rounded-full transition-all duration-500 ${
-                              isActive
-                                ? 'bg-[var(--primary)] w-full'
-                                : 'bg-white/20 w-0 group-hover:w-full group-hover:bg-[var(--primary)]/50'
-                            }`} />
-                            <span className={`text-[10px] font-semibold transition-colors duration-300 ${
-                              isActive ? 'text-[var(--primary)]' : 'text-white/50 group-hover:text-white/70'
-                            }`}>
-                              {(index + 1).toString().padStart(2, '0')}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Shine sweep effect */}
-                        <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
-                      </div>
-                      
-                      {/* Outer glow for active item */}
-                      {isActive && (
-                        <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-[var(--primary)]/30 to-[var(--primary)]/10 blur-lg -z-10 animate-pulse" />
-                      )}
-                    </div>
-                </SwiperSlide>
-              )})}
-            </Swiper>
-
-            {/* Navigation Buttons */}
-            <button className="thumb-prev absolute left-0 top-1/2 z-20 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/30 bg-black/70 backdrop-blur-xl shadow-xl transition-all duration-300 hover:scale-110 hover:bg-black/80 hover:border-[var(--primary)]/50">
-              <svg className="h-5 w-5 sm:h-6 sm:w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-
-            <button className="thumb-next absolute right-0 top-1/2 z-20 -translate-y-1/2 translate-x-2 sm:translate-x-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/30 bg-black/70 backdrop-blur-xl shadow-xl transition-all duration-300 hover:scale-110 hover:bg-black/80 hover:border-[var(--primary)]/50">
-              <svg className="h-5 w-5 sm:h-6 sm:w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-
-        </div>
-
-        {/* Bottom Features */}
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
-          <div className="group rounded-3xl border border-white/20 bg-white/10 p-6 text-center backdrop-blur-xl transition-all duration-300 hover:border-[var(--primary)]/30 hover:bg-white/15">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--primary)]/20 to-transparent transition-transform duration-300 group-hover:scale-110">
-              <svg className="h-8 w-8 text-[var(--primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-lg font-bold text-white">{t('features.professional.title')}</h3>
-            <p className="text-sm text-white/70">{t('features.professional.description')}</p>
-          </div>
-
-          <div className="group rounded-3xl border border-white/20 bg-white/10 p-6 text-center backdrop-blur-xl transition-all duration-300 hover:border-[var(--primary)]/30 hover:bg-white/15">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--primary)]/20 to-transparent transition-transform duration-300 group-hover:scale-110">
-              <svg className="h-8 w-8 text-[var(--primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-lg font-bold text-white">{t('features.lighting.title')}</h3>
-            <p className="text-sm text-white/70">{t('features.lighting.description')}</p>
-          </div>
-
-          <div className="group rounded-3xl border border-white/20 bg-white/10 p-6 text-center backdrop-blur-xl transition-all duration-300 hover:border-[var(--primary)]/30 hover:bg-white/15">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--primary)]/20 to-transparent transition-transform duration-300 group-hover:scale-110">
-              <svg className="h-8 w-8 text-[var(--primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-lg font-bold text-white">{t('features.versatile.title')}</h3>
-            <p className="text-sm text-white/70">{t('features.versatile.description')}</p>
+        <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-white/5 p-3 sm:p-6 shadow-2xl backdrop-blur-md">
+          {/* subtle inner gradient edge for style consistency */}
+          <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 via-transparent to-white/5" />
+          <div className="relative grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+            {images.map((img, idx) => (
+              <figure
+                key={img.id}
+                onClick={() => setLightbox({ open: true, index: idx })}
+                className="group relative aspect-[4/3] cursor-zoom-in overflow-hidden rounded-2xl border border-white/20 bg-black/30 shadow-md transition-transform duration-300 hover:scale-[1.02] hover:-translate-y-0.5"
+              >
+                <Image
+                  src={img.src}
+                  alt="Studio photo"
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 33vw"
+                  className="object-cover"
+                  priority={idx < 6}
+                />
+                {/* hover accent ring */}
+                <div className="pointer-events-none absolute -inset-px rounded-2xl border border-white/0 transition-colors duration-300 group-hover:border-white/30" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              </figure>
+            ))}
           </div>
         </div>
       </div>
-      </div>
+      <Lightbox items={images} state={lightbox} setState={setLightbox} />
     </section>
+  )
+}
+
+function Lightbox({ items, state, setState }: { items: { id: string; src: string }[]; state: { open: boolean; index: number }; setState: React.Dispatch<React.SetStateAction<{ open: boolean; index: number }>> }) {
+  useEffect(() => {
+    if (!state.open) return
+    const { overflow } = document.body.style
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = overflow }
+  }, [state.open])
+
+  const onClose = useCallback(() => setState(s => ({ ...s, open: false })), [setState])
+  const onPrev = useCallback(() => setState(s => ({ ...s, index: (s.index - 1 + items.length) % items.length })), [items.length, setState])
+  const onNext = useCallback(() => setState(s => ({ ...s, index: (s.index + 1) % items.length })), [items.length, setState])
+
+  useEffect(() => {
+    if (!state.open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowLeft') onPrev()
+      if (e.key === 'ArrowRight') onNext()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [state.open, onClose, onPrev, onNext])
+
+  if (!state.open || items.length === 0) return null
+  const current = items[state.index]
+
+  return (
+    <div role="dialog" aria-modal="true" className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-sm" onClick={onClose}>
+      <button aria-label="Close" onClick={(e) => { e.stopPropagation(); onClose() }} className="absolute right-4 top-4 rounded-full border border-white/30 bg-white/10 p-2 text-white shadow hover:bg-white/20">
+        <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      {items.length > 1 && (
+        <>
+          <button aria-label="Previous" onClick={(e) => { e.stopPropagation(); onPrev() }} className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-white/10 p-3 text-white shadow hover:bg-white/20">
+            <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button aria-label="Next" onClick={(e) => { e.stopPropagation(); onNext() }} className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-white/10 p-3 text-white shadow hover:bg-white/20">
+            <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </>
+      )}
+      <div className="relative mx-2 h-[78vh] w-[94vw] sm:h-[82vh] sm:w-[92vw]" onClick={(e) => e.stopPropagation()}>
+        <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/20 bg-black/40 shadow-2xl">
+          <Image src={current.src} alt="Studio photo" fill sizes="100vw" className="object-contain" priority />
+        </div>
+        <div className="pointer-events-none absolute bottom-3 right-4 rounded-full border border-white/30 bg-black/50 px-3 py-1 text-sm text-white/90">
+          {state.index + 1} / {items.length}
+        </div>
+      </div>
+    </div>
   )
 }

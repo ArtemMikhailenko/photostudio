@@ -25,6 +25,7 @@ export default function Header() {
     () => [
       { code: "ru", label: "RU" },
       { code: "en", label: "EN" },
+      { code: "he", label: "HE" },
     ],
     []
   );
@@ -135,7 +136,7 @@ export default function Header() {
             aria-label="На главную"
           >
             <Image
-              src="/images/logo-dark.svg"
+              src="/images/logo-light.svg"
               alt="Логотип"
               width={300}
               height={72}
